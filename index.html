@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title> Eid Mubarak to All Of you 🎉</title>
+    
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="apple-touch-icon" href="logo.png">
+
+    <meta name="description" content="اپنا نام لکھیں اور عید مبارک ka ذاتی پیغام تیار کریں، فوراً واٹس ایپ پر شیئر کریں!">
+    <meta property="og:title" content="✨ عید الفطر مبارک - آپ کے لیے ایک خاص تحفہ ✨">
+    <meta property="og:description" content="اپنا نام لکھیں اور اپنی عید کی وش بنائیں۔">
+    <meta property="og:image" content="logo.png">
+    <meta property="og:type" content="website">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Noto+Nastaliq+Urdu&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        :root {
+            --neon-gold: #ffd700;
+            --deep-green: #022c22;
+            --bright-gold: #f1c40f;
+            --glass: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            background: radial-gradient(circle at center, #064e3b 0%, #022c22 100%);
+            font-family: 'Poppins', 'Noto Nastaliq Urdu', serif;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            overflow-x: hidden;
+            padding-bottom: 70px;
+        }
+
+        .logo-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+            margin-top: 10px;
+        }
+        .site-logo {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 3px solid var(--neon-gold);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+            object-fit: cover;
+            background: #000;
+        }
+
+        #entry-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--deep-green); z-index: 1000;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+        }
+        .gift-box { font-size: 80px; cursor: pointer; animation: pulse 1.5s infinite; }
+
+        .container { width: 92%; max-width: 480px; padding: 25px 0; display: none; animation: fadeIn 1s ease; }
+
+        .video-box {
+            width: 100%; border-radius: 20px; overflow: hidden;
+            border: 3px solid var(--neon-gold);
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
+            margin-bottom: 20px;
+            background: #000;
+        }
+        video { width: 100%; display: block; object-fit: cover; }
+
+        .viral-counter {
+            background: rgba(0,0,0,0.3); padding: 8px 15px; border-radius: 50px;
+            font-size: 0.85rem; margin-bottom: 20px; border: 1px solid var(--neon-gold);
+            display: inline-block; color: var(--neon-gold);
+        }
+
+        .main-greeting {
+            font-size: 2.2rem;
+            background: linear-gradient(to bottom, #fff 20%, var(--bright-gold) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 10px; line-height: 1.8;
+            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
+        }
+
+        .urdu-msg { font-size: 1.05rem; line-height: 2; margin-bottom: 25px; padding: 0 10px; color: #f0f0f0; }
+
+        .glass-card {
+            background: var(--glass); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.2); border-radius: 25px;
+            padding: 30px 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        }
+
+        input[type="text"] {
+            width: 100%; padding: 18px; border-radius: 15px; border: 2px solid var(--neon-gold);
+            background: rgba(255,255,255,0.95); color: #222; font-size: 1.1rem;
+            text-align: center; outline: none; margin-bottom: 20px; font-family: 'Noto Nastaliq Urdu';
+        }
+
+        .btn {
+            width: 100%; padding: 18px; border-radius: 15px; font-weight: bold;
+            font-size: 1.15rem; cursor: pointer; transition: 0.3s;
+            display: flex; align-items: center; justify-content: center; gap: 10px; border: none;
+        }
+        .btn-gen { background: linear-gradient(45deg, var(--bright-gold), var(--neon-gold)); color: #022c22; }
+
+        .btn-wa {
+            background: #25D366; color: white; margin-top: 20px; display: none;
+            animation: slideUp 0.5s forwards; text-decoration: none;
+        }
+
+        #output-card { display: none; margin-top: 25px; border: 2px solid var(--neon-gold); }
+
+        .mute-btn {
+            position: fixed; bottom: 80px; left: 20px;
+            background: var(--neon-gold); width: 50px; height: 50px;
+            border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; cursor: pointer; z-index: 100; box-shadow: 0 0 15px rgba(0,0,0,0.3);
+        }
+
+        .ad-container {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 320px;
+            height: 50px;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0,0,0,0.5);
+        }
+
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        footer { margin: 40px 0; font-size: 0.8rem; opacity: 0.6; }
+    </style>
+</head>
+<body>
+
+    <div id="entry-screen">
+        <div class="gift-box" onclick="startApp()">🎁</div>
+        <h2 style="margin-top:20px; color: var(--neon-gold); font-family: 'Noto Nastaliq Urdu';">عید کا تحفہ کھولنے کے لیے کلک کریں</h2>
+    </div>
+
+    <audio id="mySong" src="song.mp3" loop></audio>
+    
+    <div class="mute-btn" onclick="toggleMute()">
+        <span id="mIco" style="font-size: 24px;">🔊</span>
+    </div>
+
+    <div class="container" id="mainApp">
+        <div class="logo-wrapper">
+            <img src="logo.png" alt="Logo" class="site-logo">
+        </div>
+
+        <div class="video-box">
+            <video id="eidVideo" loop playsinline muted preload="auto">
+                <source src="eid.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="viral-counter">
+            🔥 اب تک <span id="vCount">12,845</span> لوگوں نے عید مبارک وش بنائی hai!
+        </div>
+
+        <h1 class="main-greeting">✨ عید الفطر مبارک ✨</h1>
+        <p class="urdu-msg">
+            اللہ آپ کی زندگی کو خوشیوں، رحمتوں اور برکتوں سے بھر دے۔ آپ کو اور آپ کے اہل خانہ کو دل کی گہرائیوں سے عید الفطر مبارک۔
+        </p>
+
+        <div class="glass-card">
+            <p style="color:var(--bright-gold); font-weight:bold; margin-bottom:15px;">👇 نیچے اپنا نام لکھیں اور عید پیغام تیار کریں:</p>
+            <input type="text" id="nameInput" placeholder="یہاں اپنا نام لکھیں..." maxlength="25">
+            <button class="btn btn-gen" onclick="makeWish()">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="22">
+                اپنا عید مبارک پیغام بنائیں
+            </button>
+
+            <div id="output-card" class="glass-card">
+                <h2 style="color: var(--bright-gold); margin-bottom:10px;">عید الفطر مبارک 🎉</h2>
+                <p id="wishText" style="line-height:1.8; font-size: 1.1rem;"></p>
+                <a href="#" id="waBtn" class="btn btn-wa" onclick="shareToWA()">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="22">
+                    واٹس ایپ پر شیئر کریں
+                </a>
+            </div>
+        </div>
+
+        <footer>❤️ کے ساتھ بنایا گیا عید کی خوشیوں کے لیے</footer>
+    </div>
+
+    <div class="ad-container">
+        <script>
+          atOptions = {
+            'key' : 'd8b366643d02cb3dfe82211d6f2bc72a',
+            'format' : 'iframe',
+            'height' : 50,
+            'width' : 320,
+            'params' : {}
+          };
+        </script>
+        <script src="https://www.highperformanceformat.com/d8b366643d02cb3dfe82211d6f2bc72a/invoke.js"></script>
+    </div>
+
+<script>
+    const song = document.getElementById('mySong');
+    const mIco = document.getElementById('mIco');
+    const video = document.getElementById('eidVideo');
+
+    function startApp() {
+        document.getElementById('entry-screen').style.display = 'none';
+        document.getElementById('mainApp').style.display = 'block';
+        
+        // Fix: Video and Song play immediately after Gift Box click
+        song.play().catch(e => console.log("Audio play blocked"));
+        video.play().catch(e => console.log("Video play blocked"));
+        song.volume = 0.5;
+        
+        confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+    }
+
+    function toggleMute() {
+        if (song.paused) { song.play(); mIco.innerText = "🔊"; }
+        else { song.pause(); mIco.innerText = "🔇"; }
+    }
+
+    function makeWish() {
+        const name = document.getElementById('nameInput').value.trim();
+        if (name === "") { alert("براہ کرم اپنا نام لکھیں!"); return; }
+
+        const out = document.getElementById('output-card');
+        const wa = document.getElementById('waBtn');
+        const msg = `*${name}* ki taraf se aap ko dil se Eid Mubarak. Allah aap ki zindagi ko khushiyon, sehat aur kamyabiyon se bhar de.`;
+
+        document.getElementById('wishText').innerText = msg;
+        out.style.display = "block";
+        wa.style.display = "flex";
+
+        confetti({ particleCount: 150, spread: 70, origin: { y: 0.7 }, colors: ['#ffd700', '#ffffff', '#064e3b'] });
+        out.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function shareToWA() {
+        const name = document.getElementById('nameInput').value;
+        const url = window.location.href;
+        const text = encodeURIComponent(`✨ *${name}* ne aap ke liye Eid ka khas paigham bheja hai! ✨\n\nIse dekhne ke liye niche link par click karein aur apna naam likhein:\n${url}`);
+        window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+    }
+
+    let count = 12845;
+    setInterval(() => {
+        count += Math.floor(Math.random() * 4);
+        document.getElementById('vCount').innerText = count.toLocaleString();
+    }, 3500);
+</script>
+</body>
+</html>
